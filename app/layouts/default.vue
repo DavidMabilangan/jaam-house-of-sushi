@@ -3,11 +3,11 @@
 
 
     const topbar = defineAsyncComponent(() => import('~/components/general/topbar'));
-    const home = defineAsyncComponent(() => import('~/components/pages/index'));
+    const home = defineAsyncComponent(() => import('~/pages/index.vue'));
 </script>
 
 
 <template>
     <topbar />
-    <home /> 
+    <NuxtPage/>
 </template>
