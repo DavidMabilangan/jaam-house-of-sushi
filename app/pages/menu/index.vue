@@ -1,9 +1,8 @@
 <script setup>
     import { defineAsyncComponent } from 'vue';
 
-    const menus = defineAsyncComponent(() => import('~/components/pages/menu/PageContent'))
+    const Menus = defineAsyncComponent(() => import('~/components/pages/menu/PageContent'))
 </script>
-
 <template>
-    <menus />
+    <Menus/>
 </template>

@@ -1,13 +1,30 @@
 <script setup>
-import { useLinks } from '~/stores/links'
-import { useSocials } from '~/stores/socials';
-const linksStore = useLinks()
-const socialStore = useSocials();
+  import { useLinks } from '~/stores/links'
+  import { useSocials } from '~/stores/socials';
+  import { useRoute } from 'vue-router';
+ 
+  const linksStore = useLinks()
+  const socialStore = useSocials()
+  const route = useRoute()
+
+  const scroll = ref(false)
+
+  const handleScroll = () => {
+    scroll.value = window.scrollY > 100  
+  }
+
+  onMounted(() => {
+    window.addEventListener('scroll', handleScroll)
+  })
+  onUnmounted(() => {
+    window.removeEventListener('scroll', handleScroll)
+  })
+
 </script>
 
 <template>
   <nav>
-    <div :class="styl['nav']" >
+    <div :class="[styl['nav'],scroll &&  styl['nav--scrolled']]" >
       <div class="container" :class="styl['nav__outter']">
         <NuxtLink to="/">
           <NuxtImg src="/LOGO.webp" alt="Jaam House of SUSHI" :class="styl['nav__outter-logo']" />
@@ -15,7 +32,7 @@ const socialStore = useSocials();
         <div :class="styl['nav__outter-wrapper']" >
           <ul :class="styl['nav__outter-wrapper__menu']">
             <li v-for="(link, index) in linksStore.links" :key="index" :class="styl['nav__outter-wrapper__menu-item']">
-              <NuxtLink :to="link.path" :class="styl['nav__outter-wrapper__menu-item__address']"> <p >{{ link.name }}</p> </NuxtLink>
+              <NuxtLink :to="link.path" :class="[styl['nav__outter-wrapper__menu-item__address'], route.path === link.path && styl['nav__outter-wrapper__menu-item__address--active'] ]"> <p >{{ link.name }}</p> </NuxtLink>
             </li>
           </ul>
           <ul :class="styl['nav__outter-wrapper__media']">
@@ -30,6 +47,7 @@ const socialStore = useSocials();
       
     </div>
   </nav>
+  
 </template>
 
 <style lang="stylus" module="styl">
@@ -40,6 +58,11 @@ const socialStore = useSocials();
     padding: 20px 40px
     background-color: var(--black)
     width 100%
+    &--scrolled
+      postion: fixed
+      top: 0
+      left: 0
+      z-index:9999
     &__outter
       width: 100%
       display: flex
@@ -66,6 +89,8 @@ const socialStore = useSocials();
               text-transform: uppercase
               cursor: pointer
               &:hover
+                color: var(--primary-color)
+              &--active
                 color: var(--primary-color)
         &__media
           list-style: none

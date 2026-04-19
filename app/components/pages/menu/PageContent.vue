@@ -1,7 +1,8 @@
 <script setup>
     import { defineAsyncComponent } from 'vue';
 
-    const TopSection = defineAsyncComponent(() => import('./section/TopSection.vue'));
+    const TopSection = defineAsyncComponent(() => import('./sections/TopSection'));
+
 </script>
 
 <template>
