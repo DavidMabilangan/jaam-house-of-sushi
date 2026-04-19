@@ -11,7 +11,7 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      title: 'Jaam House of Sushi',
+      title: 'JAAM House of Sushi',
 
       meta: [
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
